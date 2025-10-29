@@ -10,4 +10,6 @@ public interface UserService extends IService<User> {
 
     Page<UserResponse> getPage(Integer pageNum, Integer pageSize);
 
+    UserResponse getUser(String username);
+
 }

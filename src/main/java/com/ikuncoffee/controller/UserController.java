@@ -9,6 +9,8 @@ import com.ikuncoffee.entity.User;
 import com.ikuncoffee.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,9 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -46,9 +51,7 @@ public class UserController {
     ) {
         User user = new User();
         BeanUtils.copyProperties(request, user);
-
-
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         boolean result = userService.save(user);
         if (!result) {
             throw new RuntimeException("创建用户失败");

@@ -8,6 +8,11 @@ public class ApiResponse<T> {
     private int code;
     private String message;
     private T data;
+    private Long timestamp;
+
+    public ApiResponse() {
+        this.timestamp = System.currentTimeMillis();
+    }
 
     public static <T> ApiResponse<T> success(T data) {
 

@@ -13,11 +13,11 @@ spring:
       mode: always
       platform: mysql
 
-logging:
-  level:
-    root: debug
-  pattern:
-    console: "%d - %m%n"
+#logging:
+#  level:
+#    root: debug
+#  pattern:
+#    console: "%d - %m%n"
 
 
 server:
@@ -32,3 +32,7 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: alpha
   show-actuator: true
+
+jwt:
+  secret: helloworldhelloworldhelloworldhelloworldhelloworldhelloworld
+  expiration: 3600000
