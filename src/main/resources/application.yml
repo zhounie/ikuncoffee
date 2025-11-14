@@ -25,14 +25,17 @@ server:
 
 springdoc:
   api-docs:
-    path: /api-docs
+    path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
-    enabled: true
     tags-sorter: alpha
     operations-sorter: alpha
-  show-actuator: true
 
 jwt:
   secret: helloworldhelloworldhelloworldhelloworldhelloworldhelloworld
   expiration: 3600000
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

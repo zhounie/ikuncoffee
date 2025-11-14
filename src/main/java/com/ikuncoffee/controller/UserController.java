@@ -14,7 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -31,10 +33,12 @@ public class UserController {
     }
 
     @GetMapping("query")
-    public ApiResponse<List<User>> findAll() {
+    public ApiResponse<List<UserResponse>> findAll() {
         List<User> userList = userService.list();
 
-        return ApiResponse.success(userList);
+        List<UserResponse> userResponseList = userList.stream().map(this::convertToResponse).collect(Collectors.toList());
+
+        return ApiResponse.success(userResponseList);
     }
 
     @GetMapping
@@ -57,5 +61,11 @@ public class UserController {
             throw new RuntimeException("创建用户失败");
         }
         return ApiResponse.success(result);
+    }
+
+    private UserResponse convertToResponse(User user) {
+        UserResponse userResponse = new UserResponse();
+        BeanUtils.copyProperties(user, userResponse);
+        return userResponse;
     }
 }

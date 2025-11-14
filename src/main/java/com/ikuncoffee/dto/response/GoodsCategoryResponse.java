@@ -6,11 +6,13 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@Schema(description = "用户")
-public class UserResponse {
+@Schema(description = "商品分类")
+public class GoodsCategoryResponse {
+
     private Long id;
-    private String username;
-    private String phone;
+    private String name;
+    private String description;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+
 }

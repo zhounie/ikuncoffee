@@ -23,7 +23,11 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/doc.html", "/v3/api-docs/**","/webjars/**", "/favicon.ico").permitAll()
                     .requestMatchers("/auth/**").permitAll()
+                    .requestMatchers("/api-docs/**").permitAll()
+                    .requestMatchers("/swagger-ui/**").permitAll()
+                    .requestMatchers("/swagger-ui.html").permitAll()
                     .anyRequest().authenticated()
             )
 			.exceptionHandling(ex -> ex
