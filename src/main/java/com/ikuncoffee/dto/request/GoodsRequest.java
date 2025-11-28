@@ -9,7 +9,7 @@ import lombok.Data;
 public class GoodsRequest {
 
     @NotNull(message = "商品名称不能为空")
-    @Schema(description = "商品名称")
+    @Schema(description = "商品名称", example = "苹果")
     private String name;
 
     @Schema(description = "商品描述")

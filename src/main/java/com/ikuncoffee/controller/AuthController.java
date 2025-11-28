@@ -5,6 +5,8 @@ import com.ikuncoffee.dto.response.ApiResponse;
 import com.ikuncoffee.dto.response.LoginResponse;
 import com.ikuncoffee.dto.response.UserResponse;
 import com.ikuncoffee.utils.JwtUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "认证", description = "认证相关操作")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -35,6 +38,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "登录", description = "账户密码登录")
     public ApiResponse<LoginResponse> login (@Valid @RequestBody LoginRequest loginRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -51,17 +55,18 @@ public class AuthController {
         return ApiResponse.success(result);
     }
 
-	// 临时工具接口：生成 BCrypt 加密串，使用后可删除
-	@GetMapping("/hash")
-	public ApiResponse<Map<String, String>> hash(@RequestParam("raw") String raw) {
-		String encoded = passwordEncoder.encode(raw);
-		Map<String, String> resp = new HashMap<>();
-		resp.put("raw", raw);
-		resp.put("encoded", encoded);
-		return ApiResponse.success(resp);
-	}
+//	// 临时工具接口：生成 BCrypt 加密串，使用后可删除
+//	@GetMapping("/hash")
+//	public ApiResponse<Map<String, String>> hash(@RequestParam("raw") String raw) {
+//		String encoded = passwordEncoder.encode(raw);
+//		Map<String, String> resp = new HashMap<>();
+//		resp.put("raw", raw);
+//		resp.put("encoded", encoded);
+//		return ApiResponse.success(resp);
+//	}
 
     @GetMapping("/userInfo")
+    @Operation(summary = "用户信息", description = "获取登录用户信息")
     public ApiResponse<UserResponse> getUserInfo (Authentication authentication) {
         return ApiResponse.success(new UserResponse());
     }
